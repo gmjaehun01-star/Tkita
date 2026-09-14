@@ -62,7 +62,15 @@ const SITE = {
      ※ 공개 동의를 받은 기관만 실제 이름으로 바꿔 주세요.
         동의 전에는 아래처럼 ○○ 표기로 두시면 됩니다.             */
   refsLead:"전국 30개 이상 대학을 비롯해 초·중·고등학교, 기업, 공공기관에서 운영 중입니다.",
+
+  /* 두 가지 방식을 섞어 쓰실 수 있습니다.
+       글자로 넣기 : "○○대학교 국제처"
+       로고로 넣기 : { logo:"images/refs/파일명.png", name:"기관명" }
+     로고 파일은 images/refs 폴더에 넣으시면 됩니다.
+     name 은 화면에 보이지 않지만, 로고가 안 뜰 때 대신 표시되고 검색에도 쓰입니다. */
   refs: [
+    // { logo:"images/refs/univ-a.png", name:"○○대학교" },
+    // { logo:"images/refs/office-b.png", name:"○○교육청" },
     "○○대학교 국제처", "○○대학교 교양교육원", "○○대학교 미래전략본부",
     "○○고등학교", "○○중학교", "○○교육청",
     "○○과학관", "○○재단", "○○공단", "○○㈜"
@@ -267,9 +275,14 @@ nav a:hover i,nav a.on i{color:var(--blue)}
 .marquee:hover .marquee__track{animation-play-state:paused}
 @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .chip{flex:none;background:#fff;border:1px solid var(--line);border-radius:999px;
-  padding:13px 26px;font-size:16px;font-weight:600;color:var(--ink);white-space:nowrap}
+  padding:13px 26px;font-size:16px;font-weight:600;color:var(--ink);white-space:nowrap;
+  display:flex;align-items:center;justify-content:center;min-height:64px}
+.chip--logo{padding:12px 24px}
+.chip--logo img{height:38px;width:auto;max-width:190px;object-fit:contain;display:block}
 @media (prefers-reduced-motion:reduce){
-  .marquee__track{animation:none;flex-wrap:wrap;width:auto}
+  /* 시스템에서 애니메이션을 꺼둔 경우 — 흐르지는 않지만 한 줄로 유지하고 손으로 넘길 수 있게 */
+  .marquee{overflow-x:auto;scrollbar-width:thin}
+  .marquee__track{animation:none}
   .demo__row{transition:none}
 }
 
@@ -399,6 +412,10 @@ function runDemo(){
 }
 
 /* ── 화면 그리기 ─────────────────────────────────────── */
+function chip(r){
+  if(typeof r === 'string') return `<span class="chip">${esc(r)}</span>`;
+  return `<span class="chip chip--logo"><img src="${esc(r.logo)}" alt="${esc(r.name||'')}" loading="lazy"></span>`;
+}
 function statsHTML(){
   return `<div class="stats">${SITE.stats.map(s=>
     `<div class="stat"><b>${esc(s.v)}</b><span>${esc(s.k)}</span></div>`).join('')}</div>
@@ -457,7 +474,7 @@ function home(){
     <p class="lead">${esc(SITE.refsLead)}</p>
   </div>
   <div class="marquee"><div class="marquee__track">
-    ${[...SITE.refs,...SITE.refs].map(r=>`<span class="chip">${esc(r)}</span>`).join('')}
+    ${[...SITE.refs,...SITE.refs].map(chip).join('')}
   </div></div></section>
 
   ${trialHTML()}`;
