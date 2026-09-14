@@ -25,8 +25,8 @@ const SITE = {
   addr:       "부산광역시 사상구 모라로 22, 1001호",
 
   /* ─── 신청 링크 (주소가 정해지면 여기만 바꾸세요) ─────────── */
-  trialUrl:   "#",   // 개인회원 가입 → 1시간 무료 체험 페이지
-  applyUrl:   "#",   // 기관 담당자용 무료 체험 신청 폼
+  trialUrl:   "https://tkita.ai/ko/register",      // 무료 사용 (회원가입)
+  applyUrl:   "https://forms.cloud.microsoft/r/47QGF1Y8mj", // 기관 도입 문의 폼
 
   /* ─── 첫 화면 문구 ──────────────────────────────────────── */
   heroTitle:  "말하는 즉시, 각자의 언어로",
@@ -75,6 +75,7 @@ const SITE = {
   products: [
     {
       id:"caption",
+      short:"강의용",
       name:"TkitaCaption",
       tag:"강의·강연 실시간 자막",
       lead:"발표자 한 명의 음성을 실시간 자막으로 바꾸고, 참석자가 각자의 언어로 봅니다.",
@@ -90,11 +91,14 @@ const SITE = {
       shots:[
         ["images/caption-main.png","프로그램 메인 화면"],
         ["images/caption-share.png","자막 공유방과 QR 코드"],
-        ["images/caption-phones.png","참석자가 자기 언어를 고르는 화면"]
+        ["images/caption-phones.png","참석자가 자기 언어를 고르는 화면"],
+        ["images/caption-record.png","강의 종료 후 저장된 기록"],
+        ["images/caption-web.png","설치 없이 쓰는 웹 버전"]
       ]
     },
     {
       id:"talk",
+      short:"대면 상담용",
       name:"TkitaTalk",
       tag:"창구·상담실 대면 통역",
       lead:"태블릿 두 대를 마주 놓고 대화합니다. 내방자는 국기 하나만 고르면 시작됩니다.",
@@ -110,12 +114,14 @@ const SITE = {
       shots:[
         ["images/talk-host.png","직원 화면 — 시작 버튼 하나"],
         ["images/talk-flags.png","내방자 화면 — 국기 선택"],
-        ["images/talk-chat.png","양쪽 화면에 각자의 언어로 표시"],
+        ["images/talk-chat.png","상담자 화면"],
+        ["images/talk-chat-b.png","내방자 화면 — 각자의 언어로 표시"],
         ["images/talk-hw.png","전용 단말 구성"]
       ]
     },
     {
       id:"mobile",
+      short:"휴대용",
       name:"TkitaMobile",
       tag:"현장·이동 중 통역",
       lead:"스마트폰 하나로 바로 씁니다. 상대는 앱을 설치하지 않아도 참여할 수 있습니다.",
@@ -130,11 +136,13 @@ const SITE = {
       ],
       shots:[
         ["images/mobile-main.png","실행 화면과 모드 선택"],
-        ["images/mobile-invite.png","QR로 초대해 각자 기기에서 대화"]
+        ["images/mobile-invite.png","QR로 초대해 각자 기기에서 대화"],
+        ["images/mobile-conv.png","대화 모드 — 화면 상하 분할"]
       ]
     },
     {
       id:"meet",
+      short:"화상 회의용",
       name:"TkitaMeet",
       tag:"화상회의 자막과 회의록",
       lead:"쓰시던 화상회의를 그대로 두고, 회의 링크만 붙여 넣으면 자막이 붙습니다.",
@@ -149,7 +157,8 @@ const SITE = {
       ],
       shots:[
         ["images/meet-caption.png","회의 중 실시간 자막 화면"],
-        ["images/meet-app.png","회의 연결과 언어 설정"]
+        ["images/meet-app.png","회의 연결과 언어 설정"],
+        ["images/meet-record.png","회의 종료 후 회의록 관리"]
       ]
     }
   ],
@@ -189,11 +198,16 @@ p{margin:0}
 header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);
   backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .bar{display:flex;align-items:center;gap:28px;height:66px}
-.brand{font-weight:800;font-size:22px;color:var(--ink);text-decoration:none;letter-spacing:-.03em}
-.brand span{color:var(--blue)}
+.brand{display:flex;align-items:center;flex:none}
+.brand img{height:30px;width:auto}
+.flogo{height:26px;width:auto;margin-bottom:14px;opacity:.95}
 nav{display:flex;gap:20px;margin-left:auto;flex-wrap:wrap}
-nav a{font-size:15px;color:var(--body);text-decoration:none;padding:4px 0;border-bottom:2px solid transparent}
+nav a{display:flex;flex-direction:column;align-items:center;gap:1px;text-decoration:none;
+  color:var(--body);padding:4px 2px;border-bottom:2px solid transparent;line-height:1.25}
+nav a b{font-size:14px;font-weight:700;letter-spacing:-.02em}
+nav a i{font-style:normal;font-size:11.5px;color:var(--muted)}
 nav a:hover,nav a.on{color:var(--blue);border-color:var(--blue)}
+nav a:hover i,nav a.on i{color:var(--blue)}
 .btn{display:inline-block;border-radius:8px;padding:12px 22px;font-weight:700;font-size:16px;
   text-decoration:none;border:1.5px solid transparent;cursor:pointer}
 .btn--fill{background:var(--blue);color:#fff}
@@ -240,6 +254,7 @@ nav a:hover,nav a.on{color:var(--blue);border-color:var(--blue)}
   text-decoration:none;display:block;transition:border-color .2s,box-shadow .2s}
 .pcard:hover{border-color:var(--blue);box-shadow:0 6px 22px rgba(11,37,69,.08)}
 .pcard b{font-size:21px;color:var(--ink);display:block;letter-spacing:-.02em}
+.pcard b span{display:block;font-size:16px;font-weight:700;color:var(--blue);margin-top:2px}
 .pcard em{font-style:normal;font-size:14px;color:var(--blue);display:block;margin-top:4px}
 .pcard p{margin-top:14px;font-size:15px;color:var(--body)}
 .pcard u{display:inline-block;margin-top:16px;font-size:14px;color:var(--blue);text-decoration:none;font-weight:600}
@@ -261,6 +276,7 @@ nav a:hover,nav a.on{color:var(--blue);border-color:var(--blue)}
 /* 제품 상세 */
 .phead{background:var(--ink);color:#fff;padding:64px 0 56px}
 .phead h1{color:#fff;font-size:clamp(28px,4vw,42px)}
+.phead h1 span{display:block;color:var(--cyan);font-size:clamp(18px,2.4vw,26px);margin-top:6px}
 .phead .tagline{color:var(--cyan);font-weight:700;font-size:15px;margin-bottom:12px}
 .phead .lead{color:#B9CFE8}
 .phead .where{margin-top:26px;font-size:14px;color:#8FB4DA;border-top:1px solid #1D3E63;padding-top:18px}
@@ -315,9 +331,9 @@ footer b{color:#fff}
 
 <header>
   <div class="wrap bar">
-    <a class="brand" href="#/" >Tkita<span>.</span></a>
+    <a class="brand" href="#/"><img src="images/logo.png" alt="Tkita"></a>
     <nav id="nav"></nav>
-    <a class="btn btn--fill btn--sm" id="navCta" href="#">무료로 써보기</a>
+    <a class="btn btn--fill btn--sm" id="navCta" href="#">무료 사용</a>
   </div>
 </header>
 
@@ -326,6 +342,7 @@ footer b{color:#fff}
 <footer>
   <div class="wrap fgrid">
     <div>
+      <img class="flogo" src="images/logo-white.png" alt="Tkita">
       <b>개발사 <span id="fMaker"></span> &nbsp;|&nbsp; 총판사 <span id="fSeller"></span></b><br>
       <span id="fAddr"></span><br>
       Tel. <span id="fTel"></span> &nbsp; Fax. <span id="fFax"></span> &nbsp; <span id="fMail"></span>
@@ -340,10 +357,11 @@ const esc = s => String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&g
 
 /* 상단 / 바닥 공통 */
 (function(){
-  const links = SITE.products.map(p=>`<a href="#/${p.id}" data-id="${p.id}">${esc(p.name.replace('Tkita',''))}</a>`).join('');
-  $('#nav').innerHTML = links + `<a href="#/" data-id="home">전체 소개</a>`;
+  const links = SITE.products.map(p=>
+    `<a href="#/${p.id}" data-id="${p.id}"><b>${esc(p.name)}</b><i>${esc(p.short)}</i></a>`).join('');
+  $('#nav').innerHTML = `<a href="#/" data-id="home"><b>제품 소개</b><i>전체 보기</i></a>` + links;
   $('#navCta').href = SITE.trialUrl;
-  $('#fNav').innerHTML = SITE.products.map(p=>`<a href="#/${p.id}">${esc(p.name)}</a>`).join('');
+  $('#fNav').innerHTML = `<a href="#/">제품 소개</a>` + SITE.products.map(p=>`<a href="#/${p.id}">${esc(p.name)} ${esc(p.short)}</a>`).join('');
   $('#fMaker').textContent = SITE.maker; $('#fSeller').textContent = SITE.seller;
   $('#fAddr').textContent = SITE.addr;  $('#fTel').textContent = SITE.tel;
   $('#fFax').textContent = SITE.fax;    $('#fMail').textContent = SITE.email;
@@ -393,7 +411,7 @@ function trialHTML(){
       <div class="trial">${SITE.trial.map(([t,d])=>
         `<div class="tcard"><b>${esc(t)}</b><p>${esc(d)}</p></div>`).join('')}</div>
       <div class="cta" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:30px">
-        <a class="btn btn--fill" href="${esc(SITE.trialUrl)}">1시간 무료로 써보기</a>
+        <a class="btn btn--fill" href="${esc(SITE.trialUrl)}">무료 사용</a>
         <a class="btn btn--ghost" href="${esc(SITE.applyUrl)}">기관 도입 문의하기</a>
       </div>
     </div></section>`;
@@ -405,7 +423,7 @@ function home(){
     <h1>${esc(SITE.heroTitle)}</h1>
     <p class="lead">${esc(SITE.heroText)}</p>
     <div class="cta">
-      <a class="btn btn--fill" href="${esc(SITE.trialUrl)}">1시간 무료로 써보기</a>
+      <a class="btn btn--fill" href="${esc(SITE.trialUrl)}">무료 사용</a>
       <a class="btn btn--ghost" href="${esc(SITE.applyUrl)}">기관 도입 문의하기</a>
     </div>
     <div class="demo">
@@ -420,11 +438,11 @@ function home(){
   </div></section>
 
   <section class="sec"><div class="wrap">
-    <h2>쓰는 자리에 따라 네 가지</h2>
+    <h2>제품 소개</h2>
     <p class="lead">인식 엔진과 번역 품질, 용어 사전은 네 제품이 모두 같습니다. 다른 것은 쓰는 환경뿐입니다.</p>
     <div class="plist">${SITE.products.map(p=>`
       <a class="pcard" href="#/${p.id}">
-        <b>${esc(p.name)}</b><em>${esc(p.tag)}</em>
+        <b>${esc(p.name)}<span>${esc(p.short)}</span></b><em>${esc(p.tag)}</em>
         <p>${esc(p.lead)}</p><u>자세히 보기</u>
       </a>`).join('')}</div>
   </div></section>
@@ -457,7 +475,7 @@ function product(p){
   return `
   <section class="phead"><div class="wrap">
     <p class="tagline">${esc(p.tag)}</p>
-    <h1>${esc(p.name)}</h1>
+    <h1>${esc(p.name)}<span>${esc(p.short)}</span></h1>
     <p class="lead">${esc(p.lead)}</p>
     <p class="where">쓰는 자리 &nbsp; ${esc(p.where)}</p>
   </div></section>
