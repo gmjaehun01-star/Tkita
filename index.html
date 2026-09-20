@@ -33,6 +33,8 @@ const SITE = {
   siteUrl:    "https://gmjaehun01-star.github.io/Tkita/",  // 주소를 바꾸면 여기도 바꿔 주세요
   gaId:       "G-16XSS3XR8Q",   // Google Analytics 측정 ID (비워두면 측정 안 함)
   formEmbed:  "",        // 기관 문의 폼을 페이지 안에 넣을 때 MS Forms 삽입 주소. 비워두면 새 창으로 열림
+  certUrl:    "",        // 시험성적서(BLEU) PDF 주소. 넣으면 성능 수치 옆에 "성적서 보기" 링크가 생김
+  privacyUrl: "",        // 개인정보처리방침 주소. 넣으면 바닥과 문의 페이지에 링크가 생김
 
   /* ─── 회사 정보 ─────────────────────────────────────────── */
   maker:      "㈜에어사운드",          // 개발사
@@ -79,7 +81,7 @@ const SITE = {
   /* ─── 도입 레퍼런스 (자동으로 흘러갑니다) ──────────────────
      ※ 공개 동의를 받은 기관만 실제 이름으로 바꿔 주세요.
         동의 전에는 아래처럼 ○○ 표기로 두시면 됩니다.             */
-  refsLead:"전국 30개 이상 대학을 비롯해 초·중·고등학교, 기업, 공공기관에서 운영 중입니다.",
+  refsLead:"전국 30개 이상 대학을 비롯해 초·중·고등학교, 공공기관, 기업에서 운영 중입니다.",
 
   /* 두 가지 방식을 섞어 쓰실 수 있습니다.
        글자로 넣기 : "○○대학교 국제처"
@@ -87,11 +89,88 @@ const SITE = {
      로고 파일은 images/refs 폴더에 넣으시면 됩니다.
      name 은 화면에 보이지 않지만, 로고가 안 뜰 때 대신 표시되고 검색에도 쓰입니다. */
   refs: [
-    // { logo:"images/refs/univ-a.webp", name:"○○대학교" },
-    // { logo:"images/refs/office-b.webp", name:"○○교육청" },
-    "○○대학교 국제처", "○○대학교 교양교육원", "○○대학교 미래전략본부",
-    "○○고등학교", "○○중학교", "○○교육청",
-    "○○과학관", "○○재단", "○○공단", "○○㈜"
+    { logo:"images/refs/ref-01.webp", name:"건국대학교" },
+    { logo:"images/refs/ref-02.webp", name:"고려대학교" },
+    { logo:"images/refs/ref-03.webp", name:"동덕여자대학교" },
+    { logo:"images/refs/ref-04.webp", name:"명지대학교" },
+    { logo:"images/refs/ref-05.webp", name:"상명대학교" },
+    { logo:"images/refs/ref-06.webp", name:"서울과학기술대학교" },
+    { logo:"images/refs/ref-07.webp", name:"서울대학교" },
+    { logo:"images/refs/ref-08.webp", name:"서울사이버대학교" },
+    { logo:"images/refs/ref-09.webp", name:"이화여자대학교" },
+    { logo:"images/refs/ref-10.webp", name:"한국성서대학교" },
+    { logo:"images/refs/ref-11.webp", name:"인하공업전문대학" },
+    { logo:"images/refs/ref-12.webp", name:"한국폴리텍대학" },
+    { logo:"images/refs/ref-13.webp", name:"가천대학교" },
+    { logo:"images/refs/ref-14.webp", name:"경기대학교" },
+    { logo:"images/refs/ref-15.webp", name:"신안산대학교" },
+    { logo:"images/refs/ref-16.webp", name:"차의과학대학교" },
+    { logo:"images/refs/ref-17.webp", name:"평택대학교" },
+    { logo:"images/refs/ref-18.webp", name:"한경국립대학교" },
+    { logo:"images/refs/ref-19.webp", name:"한국공학대학교" },
+    { logo:"images/refs/ref-20.webp", name:"대전과학기술대학교" },
+    { logo:"images/refs/ref-21.webp", name:"대전대학교" },
+    { logo:"images/refs/ref-22.webp", name:"대전보건대학교" },
+    { logo:"images/refs/ref-23.webp", name:"목원대학교" },
+    { logo:"images/refs/ref-24.webp", name:"배재대학교" },
+    { logo:"images/refs/ref-25.webp", name:"우송대학교" },
+    { logo:"images/refs/ref-26.webp", name:"우송정보대학" },
+    { logo:"images/refs/ref-27.webp", name:"한밭대학교" },
+    { logo:"images/refs/ref-28.webp", name:"세명대학교" },
+    { logo:"images/refs/ref-29.webp", name:"백석대학교" },
+    { logo:"images/refs/ref-30.webp", name:"한서대학교" },
+    { logo:"images/refs/ref-31.webp", name:"가톨릭관동대학교" },
+    { logo:"images/refs/ref-32.webp", name:"강원도립대학교" },
+    { logo:"images/refs/ref-33.webp", name:"상지대학교" },
+    { logo:"images/refs/ref-34.webp", name:"송곡대학교" },
+    { logo:"images/refs/ref-35.webp", name:"한라대학교" },
+    { logo:"images/refs/ref-36.webp", name:"광주여자대학교" },
+    { logo:"images/refs/ref-37.webp", name:"전남대학교" },
+    { logo:"images/refs/ref-38.webp", name:"우석대학교" },
+    { logo:"images/refs/ref-39.webp", name:"원광대학교" },
+    { logo:"images/refs/ref-40.webp", name:"전북대학교" },
+    { logo:"images/refs/ref-41.webp", name:"전주대학교" },
+    { logo:"images/refs/ref-42.webp", name:"전주비전대학교" },
+    { logo:"images/refs/ref-43.webp", name:"국립목포대학교" },
+    { logo:"images/refs/ref-44.webp", name:"동의대학교" },
+    { logo:"images/refs/ref-45.webp", name:"대구보건대학교" },
+    { logo:"images/refs/ref-46.webp", name:"대구예술대학교" },
+    { logo:"images/refs/ref-47.webp", name:"인제대학교" },
+    { logo:"images/refs/ref-48.webp", name:"울산과학대학교" },
+    { logo:"images/refs/ref-49.webp", name:"울산대학교" },
+    { logo:"images/refs/ref-50.webp", name:"서울삼일초등학교" },
+    { logo:"images/refs/ref-51.webp", name:"대림중학교" },
+    { logo:"images/refs/ref-52.webp", name:"등촌중학교" },
+    { logo:"images/refs/ref-53.webp", name:"선정중학교" },
+    { logo:"images/refs/ref-54.webp", name:"충암고등학교" },
+    { logo:"images/refs/ref-55.webp", name:"중화고등학교" },
+    { logo:"images/refs/ref-56.webp", name:"해성국제컨벤션고등학교" },
+    { logo:"images/refs/ref-57.webp", name:"해밀학교" },
+    { logo:"images/refs/ref-58.webp", name:"온산초등학교" },
+    { logo:"images/refs/ref-59.webp", name:"북원초등학교" },
+    { logo:"images/refs/ref-60.webp", name:"신창중학교" },
+    { logo:"images/refs/ref-61.webp", name:"한국말산업고등학교" },
+    { logo:"images/refs/ref-62.webp", name:"함평영화학교" },
+    { logo:"images/refs/ref-63.webp", name:"완도수산고등학교" },
+    { logo:"images/refs/ref-64.webp", name:"녹전초등학교" },
+    { logo:"images/refs/ref-65.webp", name:"한국폴리텍다솜고등학교" },
+    { logo:"images/refs/ref-66.webp", name:"강남구" },
+    { logo:"images/refs/ref-67.webp", name:"달성군" },
+    { logo:"images/refs/ref-68.webp", name:"초록우산" },
+    { logo:"images/refs/ref-69.webp", name:"충북바이오산학융합원" },
+    { logo:"images/refs/ref-70.webp", name:"한국국제보건의료재단" },
+    { logo:"images/refs/ref-71.webp", name:"한국운동생리학회" },
+    { logo:"images/refs/ref-72.webp", name:"한국원자력환경공단" },
+    { logo:"images/refs/ref-73.webp", name:"한국장애인고용공단" },
+    { logo:"images/refs/ref-74.webp", name:"동서식품" },
+    { logo:"images/refs/ref-75.webp", name:"화승(HWASEUNG)" },
+    { logo:"images/refs/ref-76.webp", name:"신성이앤지" },
+    { logo:"images/refs/ref-77.webp", name:"요진건설산업" },
+    { logo:"images/refs/ref-78.webp", name:"동문건설" },
+    { logo:"images/refs/ref-79.webp", name:"DH오토리드" },
+    { logo:"images/refs/ref-80.webp", name:"베가(VEGA)" },
+    { logo:"images/refs/ref-81.webp", name:"한강YMCA" },
+    { logo:"images/refs/ref-82.webp", name:"제일기획" }
   ],
 
   /* ─── 제품 ─────────────────────────────────────────────────
@@ -107,6 +186,13 @@ const SITE = {
       lead:"발표자 한 명의 음성을 실시간 자막으로 바꾸고, 참석자가 각자의 언어로 봅니다.",
       where:"강의실 · 대형 강연 · 학술대회 · 포럼",
       youtube:"",
+      flow:[
+        ["프로그램 실행","강의자 PC에서 실행합니다. 설치 없이 웹 버전으로도 됩니다."],
+        ["자막 공유방 만들기","제목을 넣어 방을 만들면 QR 코드와 접속 주소가 생깁니다."],
+        ["참석자 접속","QR을 찍어 웹으로 들어와 자기 언어를 고릅니다."],
+        ["종료 후 자동 저장","음성과 텍스트 파일이 남아 강의록이 됩니다."]
+      ],
+      scenes:["전공 강의","학술대회 · 초청 특강","오리엔테이션 · 설명회"],
       feats:[
         ["말하는 동시에 자막","발화와 동시에 자막이 만들어지고, 문장이 끝나면 문맥에 맞게 교정됩니다."],
         ["한 자리에서 최대 30개 언어","참석자마다 다른 언어를 골라도 하나의 강의에서 동시에 제공됩니다."],
@@ -130,6 +216,13 @@ const SITE = {
       lead:"태블릿 두 대를 마주 놓고 대화합니다. 내방자는 국기 하나만 고르면 시작됩니다.",
       where:"상담 창구 · 민원실 · 상담실",
       youtube:"",
+      flow:[
+        ["시작 버튼","직원용 태블릿에서 시작을 누릅니다. 자동 로그인 상태로 납품됩니다."],
+        ["국기 선택","내방자가 자기 나라 국기를 고릅니다. 동의 화면도 그 언어로 뜹니다."],
+        ["마이크 누르고 말하기","말이 끝나면 다시 눌러 끕니다. 상대 언어로 바로 번역됩니다."],
+        ["종료와 기록","화면이 초기화되고 대화는 파일로 저장됩니다."]
+      ],
+      scenes:["상담 창구","민원실","학부모 상담실"],
       feats:[
         ["한국어를 몰라도 씁니다","국기 하나만 누르면 됩니다. 사용법을 설명할 필요가 없습니다."],
         ["동의 화면도 모국어","개인정보 수집·이용 동의가 내방자의 언어로 표시됩니다."],
@@ -153,6 +246,13 @@ const SITE = {
       lead:"스마트폰 하나로 바로 씁니다. 상대는 앱을 설치하지 않아도 참여할 수 있습니다.",
       where:"현장 · 이동 중 · 소규모 응대",
       youtube:"",
+      flow:[
+        ["앱 실행","대화 · 초대 · 자막 세 가지 모드 중 상황에 맞게 고릅니다."],
+        ["대화 모드","기기 한 대를 마주 놓고 화면 위아래로 각자 언어를 봅니다."],
+        ["초대 모드","QR이나 링크를 보여주면 상대는 설치 없이 웹으로 들어옵니다."],
+        ["기록 확인","진행한 대화가 모드별로 나뉘어 저장됩니다."]
+      ],
+      scenes:["캠퍼스 · 복도","현장 방문 · 인솔","컨퍼런스 청취"],
       feats:[
         ["상황에 따라 세 가지 모드","마주 앉을 때, 떨어져 있을 때, 혼자 들을 때에 맞춰 고릅니다."],
         ["QR로 초대하면 웹으로 참여","초대받은 사람은 앱스토어를 거치지 않습니다."],
@@ -174,6 +274,14 @@ const SITE = {
       lead:"쓰시던 화상회의를 그대로 두고, 회의 링크만 붙여 넣으면 자막이 붙습니다.",
       where:"Zoom · Teams · Google Meet · Webex",
       youtube:"",
+      flow:[
+        ["회의 링크 복사","평소대로 Zoom · Teams 등에서 회의를 만들고 초대 링크를 복사합니다."],
+        ["TkitaMeet에 붙여넣기","회의명과 링크를 넣고 발표 언어, 번역 언어를 고릅니다."],
+        ["TkitaBot 참석 수락","시작을 누르면 회의에 참석 요청이 옵니다. 수락하면 연결 끝입니다."],
+        ["참가자 링크 접속","자막 링크가 회의 채팅창에 뜹니다. 설치 없이 누르기만 하면 됩니다."],
+        ["종료 후 회의록","화자별 · 언어별로 저장되고 요약본이 함께 만들어집니다."]
+      ],
+      scenes:["해외 파트너 회의","국제 협력 화상회의","온라인 강의 · 세미나"],
       feats:[
         ["쓰던 도구를 바꾸지 않습니다","회의 방식도 계정 체계도 그대로 두고 얹어서 씁니다."],
         ["참가자는 설치 없이 링크만","외부 파트너에게 프로그램 설치를 요구하지 않습니다."],
@@ -220,6 +328,36 @@ const SITE = {
       products:["talk","mobile"],
       depts:"민원실 · 국제교류 담당 · 외국인주민 지원센터" }
   ],
+
+  /* ─── 첫 화면: 어떤 제품이 맞나요? (상황 → 제품 id) ─── */
+  chooser: [
+    ["한 사람이 말하고 여러 명이 듣습니다 — 강의, 강연, 설명회", "caption"],
+    ["창구나 상담실에서 마주 앉아 대화합니다", "talk"],
+    ["복도, 현장, 이동 중에 급히 대화해야 합니다", "mobile"],
+    ["화상회의에 자막과 회의록이 필요합니다", "meet"]
+  ],
+
+  /* ─── 도입 절차 ─── */
+  procedure: [
+    ["문의 · 상담", "전화나 메일, 문의 폼으로 연락 주시면 담당자가 상황을 듣습니다."],
+    ["무료 체험", "미팅 후 2주에서 한 달까지 실제 강의와 창구에서 써봅니다."],
+    ["견적 · 계약", "기관 규모와 사용 환경에 맞춰 구성을 확정합니다."],
+    ["계정 발급 · 안내", "계정을 전달하고 사용법을 안내합니다."],
+    ["운영 지원", "기술 지원과 정기 업데이트를 제공합니다."]
+  ],
+
+  /* ─── 회사 소개 (#/about) ─── */
+  about: {
+    lead: "Tkita는 ㈜에어사운드가 개발하고 ㈜드림아이티가 총판을 맡고 있습니다.",
+    maker: "음성인식 · 번역 엔진과 네 제품을 개발하는 기술 회사입니다. 등록 특허 15건을 보유하고 있습니다.",
+    seller: "부산에 있는 IT 기업으로 Tkita의 영업, 도입, 운영 지원을 맡습니다. 교육기관 · 공공기관 · 기업을 대상으로 합니다.",
+    facts: [
+      ["등록 특허", "15건"],
+      ["중소기업기술마켓", "등록 (2025-10-0000116)"],
+      ["번역 품질 시험", "BLEU 평균 76점 · GCL-SO2509-012"],
+      ["지원 언어", "음성인식 77개 · 번역 133개"]
+    ]
+  },
 
   /* ─── 자주 묻는 질문 ─────────────────────────────────────
      show 를 true 로 바꾸면 첫 화면 하단과 #/faq 페이지에 표시됩니다.
@@ -360,15 +498,19 @@ nav a.on{border-color:var(--blue)}
 .figs-note{font-size:13px;color:#7C86A3;margin-top:18px}
 
 /* 레퍼런스 티커 */
-.ticker{margin-top:36px;overflow:hidden;
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-.ticker__track{display:flex;width:max-content;gap:14px;animation:slide 40s linear infinite}
+.ticker{margin-top:14px;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.ticker__track{display:flex;width:max-content;gap:12px;animation:slide 90s linear infinite}
+.ticker--rev .ticker__track{animation-name:slideRev}
 .ticker:hover .ticker__track{animation-play-state:paused}
 @keyframes slide{to{transform:translateX(-50%)}}
+@keyframes slideRev{from{transform:translateX(-50%)}to{transform:translateX(0)}}
 .tk{flex:none;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid var(--line);border-radius:14px 14px 14px 4px;
-  padding:14px 26px;font-size:16px;font-weight:700;color:var(--ink);white-space:nowrap;min-height:64px}
-.tk img{height:36px;width:auto;max-width:180px;object-fit:contain}
+  padding:12px 22px;font-size:16px;font-weight:700;color:var(--ink);white-space:nowrap;height:76px}
+.tk img{height:40px;width:auto;max-width:190px;object-fit:contain}
+.refnote{font-size:13px;color:var(--mute);margin-top:22px;text-align:center}
 @media (prefers-reduced-motion:reduce){.ticker{overflow-x:auto}.ticker__track{animation:none}.cap__row{transition:none}}
+@media (max-width:960px){.tk{height:64px;padding:10px 16px}.tk img{height:32px;max-width:150px}}
 
 /* 체험 (그라데이션 블록) */
 .trial{background:var(--grad);color:#fff;border-radius:24px 24px 24px 8px;padding:56px 56px 52px;position:relative;overflow:hidden}
@@ -454,11 +596,69 @@ footer b{color:#fff}
 .contact .form iframe{width:100%;height:100%;min-height:720px;border:0;display:block}
 .contact .form .ph{padding:40px;text-align:center;color:var(--mute)}
 
+/* 선택표 */
+.choose{margin-top:36px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#fff}
+.choose a{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;padding:20px 24px;text-decoration:none;border-top:1px solid var(--line)}
+.choose a:first-child{border-top:0}
+.choose a:hover{background:var(--sky-2)}
+.choose a span{font-size:16px;color:var(--text)}
+.choose a b{font-size:15px;color:var(--blue);white-space:nowrap}
+.choose a b small{display:block;font-weight:600;color:var(--mute);font-size:12px;text-align:right}
+
+/* 사용 흐름 */
+.flow{display:grid;gap:12px;margin-top:28px}
+.flow div{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;padding:18px 20px;background:var(--sky-2);border-radius:14px 14px 14px 4px}
+.flow i{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:var(--grad);color:#fff;font-style:normal;font-weight:800;font-size:13px;margin-top:2px}
+.flow b{display:block;font-size:16px;color:var(--ink)}
+.flow p{font-size:14.5px;color:var(--mute);margin-top:4px}
+.scenes{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.scenes span{font-size:13.5px;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 14px}
+.h3{font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-.02em;margin-top:52px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
+.pair a{text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:14px 14px 14px 4px;padding:20px 22px}
+.pair a:hover{border-color:var(--blue)}
+.pair a b{display:block;color:var(--ink);font-size:16px}
+.pair a span{display:block;color:var(--mute);font-size:14px;margin-top:4px}
+
+/* 도입 절차 */
+.proc{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:36px}
+.proc div{background:#fff;border:1px solid var(--line);border-radius:14px 14px 14px 4px;padding:20px 18px;position:relative}
+.proc i{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:var(--grad);color:#fff;font-style:normal;font-weight:800;font-size:13px}
+.proc b{display:block;font-size:15.5px;color:var(--ink);margin-top:14px}
+.proc p{font-size:13.5px;color:var(--mute);margin-top:6px;line-height:1.55}
+
+/* 회사 소개 */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px}
+.about div{background:#fff;border:1px solid var(--line);border-radius:var(--r) var(--r) var(--r) 6px;padding:26px}
+.about b{display:block;font-size:13px;letter-spacing:.08em;color:var(--blue);text-transform:uppercase}
+.about strong{display:block;font-size:20px;color:var(--ink);margin-top:6px;letter-spacing:-.02em}
+.about p{font-size:15px;color:var(--mute);margin-top:10px}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}
+.facts div{background:var(--sky-2);border-radius:14px 14px 14px 4px;padding:18px 20px}
+.facts span{display:block;font-size:13px;color:var(--mute)}
+.facts b{display:block;font-size:17px;color:var(--ink);margin-top:4px;font-weight:800;letter-spacing:-.01em}
+
+/* 접근성 · 인쇄 */
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:#fff;padding:10px 14px;border-radius:8px;z-index:100}
+.skip:focus{left:16px}
+:focus-visible{outline:3px solid var(--blue-x);outline-offset:3px}
+@media print{
+  header,.stick,.cap,.ticker,.video,.btn,.lnk,footer .fnav{display:none!important}
+  body{background:#fff;color:#000;font-size:12pt}
+  .sec{padding:18pt 0}
+  .sec--char,.sec--char h2{background:#fff!important;color:#000!important}
+  .fig b{color:#000!important;-webkit-text-fill-color:#000}
+  .tile__art{display:none}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:9pt;color:#555}
+}
+
 /* 모바일 고정 CTA */
 .stick{display:none}
 
 @media (max-width:960px){
-  .segs,.pick,.contact{grid-template-columns:1fr}
+  .segs,.pick,.contact,.pair,.about{grid-template-columns:1fr}
+  .proc{grid-template-columns:1fr 1fr}
+  .facts{grid-template-columns:1fr 1fr}
   .stick{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;gap:10px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));
     background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
   .stick .btn{flex:1;justify-content:center;padding:13px 10px;font-size:15px}
@@ -484,7 +684,7 @@ footer b{color:#fff}
 </style>
 </head>
 <body>
-
+<a class="skip" href="#app">본문으로 건너뛰기</a>
 <header>
   <div class="wrap bar">
     <a class="brand" href="#/"><img src="images/logo.png" alt="Tkita"></a>
@@ -518,7 +718,8 @@ const pad = n => String(n).padStart(2,'0');
   $('#nav').innerHTML = `<a href="#/" data-id="home"><b>제품 소개</b><i>전체 보기</i></a>` + links;
   $('#navCta').href = SITE.trialUrl;
   $('#fNav').innerHTML = `<a href="#/">제품 소개</a>` + SITE.products.map(p=>`<a href="#/${p.id}">${esc(p.name)} ${esc(p.short)}</a>`).join('')
-    + SITE.segments.map(g=>`<a href="#/${g.id}">${esc(g.name)}</a>`).join('') + `<a href="#/contact">도입 문의</a>`;
+    + SITE.segments.map(g=>`<a href="#/${g.id}">${esc(g.name)}</a>`).join('') + `<a href="#/contact">도입 문의</a><a href="#/about">회사 소개</a>`
+    + (SITE.privacyUrl ? `<a href="${esc(SITE.privacyUrl)}" target="_blank" rel="noopener">개인정보처리방침</a>` : '');
   $('#fMaker').textContent = SITE.maker; $('#fSeller').textContent = SITE.seller;
   $('#fAddr').textContent = SITE.addr;  $('#fFax').textContent = SITE.fax;
   const tel=$('#fTel'); tel.textContent=SITE.tel; tel.href='tel:'+SITE.tel.replace(/-/g,'');
@@ -576,7 +777,7 @@ function capHTML(){
 }
 function figsHTML(){
   return `<div class="figs">${SITE.stats.map(s=>`<div class="fig"><b>${esc(s.v)}</b><span>${esc(s.k)}</span></div>`).join('')}</div>
-    <p class="figs-note">${esc(SITE.statsNote)}</p>`;
+    <p class="figs-note">${esc(SITE.statsNote)}${SITE.certUrl?` &nbsp;·&nbsp; <a href="${esc(SITE.certUrl)}" target="_blank" rel="noopener" style="color:#8FB0FF;text-decoration:underline" data-ev="cert_view">시험성적서 보기</a>`:''}</p>`;
 }
 function trialHTML(){
   return `<section class="sec"><div class="wrap"><div class="trial">
@@ -584,6 +785,13 @@ function trialHTML(){
     <div class="cols">${SITE.trial.map(([t,d],i)=>`<div class="col"><b>${esc(t)}</b><p>${esc(d)}</p>
       <a class="btn ${i===0?'btn--white':'btn--ghost'}" href="${esc(i===0?SITE.trialUrl:applyHref())}" data-ev="${i===0?'cta_trial':'cta_apply'}">${i===0?'무료 사용':'기관 도입 문의하기'}</a></div>`).join('')}</div>
   </div></div></section>`;
+}
+function tickerHTML(){
+  const n=SITE.refs.length, half=Math.ceil(n/2);
+  const a=SITE.refs.slice(0,half), b=SITE.refs.slice(half);
+  const row=(arr,rev)=>`<div class="ticker${rev?' ticker--rev':''}"><div class="ticker__track">${[...arr,...arr].map(tk).join('')}</div></div>`;
+  return row(a,false) + (b.length?row(b,true):'') +
+    `<p class="refnote">도입 기관 ${n}곳 · 마우스를 올리면 멈춥니다</p>`;
 }
 function tk(r){
   if(typeof r==='string') return `<span class="tk">${esc(r)}</span>`;
@@ -621,6 +829,13 @@ function home(){
     </div>
   </div></section>
 
+  <section class="sec" style="padding-bottom:0"><div class="wrap">
+    <h2>어떤 제품이 맞나요?</h2>
+    <p class="lead">쓰는 자리를 고르시면 됩니다. 인식 엔진과 번역 품질은 네 제품이 같습니다.</p>
+    <div class="choose">${SITE.chooser.map(([sit,id])=>{const p=SITE.products.find(x=>x.id===id);
+      return `<a href="#/${id}"><span>${esc(sit)}</span><b>${esc(p.name)} →<small>${esc(p.short)}</small></b></a>`;}).join('')}</div>
+  </div></section>
+
   <section class="sec"><div class="wrap">
     <h2>제품 소개</h2>
     <p class="lead">인식 엔진과 번역 품질, 용어 사전은 네 제품이 모두 같습니다. 쓰는 자리에 맞춰 고르시면 됩니다.</p>
@@ -646,13 +861,40 @@ function home(){
     <h2>이미 현장에서 쓰고 있습니다</h2>
     <p class="lead">${esc(SITE.refsLead)}</p>
   </div>
-  <div class="ticker"><div class="ticker__track">${[...SITE.refs,...SITE.refs].map(tk).join('')}</div></div>
+  ${tickerHTML()}
   </section>
 
+  ${procHTML()}
   ${faqHTML()}
   ${trialHTML()}`;
 }
 
+function procHTML(){
+  return `<section class="sec sec--sky"><div class="wrap">
+    <h2>도입은 이렇게 진행됩니다</h2>
+    <p class="lead">문의부터 운영까지 다섯 단계입니다. 계약 전에 실제 환경에서 먼저 써보는 단계가 들어 있습니다.</p>
+    <div class="proc">${SITE.procedure.map(([t,d],i)=>`<div><i>${i+1}</i><b>${esc(t)}</b><p>${esc(d)}</p></div>`).join('')}</div>
+  </div></section>`;
+}
+function aboutPage(){
+  const a=SITE.about;
+  return `
+  <section class="phead"><div class="wrap">
+    <span class="tag"><i></i>회사 소개</span>
+    <h1>개발과 총판</h1>
+    <p class="lead">${esc(a.lead)}</p>
+  </div></section>
+  <section class="sec"><div class="wrap">
+    <div class="about">
+      <div><b>개발사</b><strong>${esc(SITE.maker)}</strong><p>${esc(a.maker)}</p></div>
+      <div><b>총판사</b><strong>${esc(SITE.seller)}</strong><p>${esc(a.seller)}</p><p style="margin-top:8px">${esc(SITE.addr)}<br>Tel. ${esc(SITE.tel)} · ${esc(SITE.email)}</p></div>
+    </div>
+    <div class="facts">${a.facts.map(([k,v])=>`<div><span>${esc(k)}</span><b>${esc(v)}</b></div>`).join('')}</div>
+    ${SITE.certUrl?`<p class="lead" style="margin-top:18px;font-size:14px"><a href="${esc(SITE.certUrl)}" target="_blank" rel="noopener" data-ev="cert_view" style="color:var(--blue)">시험성적서 원문 보기 →</a></p>`:''}
+  </div></section>
+  ${procHTML()}
+  ${trialHTML()}`;
+}
 function faqHTML(){
   if(!SITE.faq || !SITE.faq.show) return '';
   return `<section class="sec"><div class="wrap">
@@ -693,7 +935,12 @@ function segment(g){
 function contact(){
   const form = SITE.formEmbed
     ? `<iframe src="${esc(SITE.formEmbed)}" title="기관 도입 문의" allowfullscreen></iframe>`
-    : `<div class="ph"><p>문의 폼 삽입 주소가 아직 설정되지 않았습니다.</p><p style="margin-top:14px"><a class="btn btn--grad" href="${esc(SITE.applyUrl)}" data-ev="cta_apply">문의 폼 열기</a></p></div>`;
+    : `<div class="ph" style="display:grid;place-content:center;min-height:420px;gap:14px">
+         <p style="font-size:18px;font-weight:700;color:var(--ink)">기관 도입 문의 양식</p>
+         <p>기관명, 담당 부서, 관심 제품을 남겨주시면 담당자가 연락드립니다. 1분이면 됩니다.</p>
+         <p style="margin-top:8px"><a class="btn btn--grad" href="${esc(SITE.applyUrl)}" target="_blank" rel="noopener" data-ev="cta_apply">문의 양식 열기</a></p>
+         ${SITE.privacyUrl?`<p style="font-size:13px"><a href="${esc(SITE.privacyUrl)}" target="_blank" rel="noopener" style="color:var(--mute)">개인정보처리방침</a></p>`:''}
+       </div>`;
   return `
   <section class="phead"><div class="wrap">
     <span class="tag"><i></i>기관 도입 문의</span>
@@ -709,7 +956,8 @@ function contact(){
       <b>개발 · 총판</b>${esc(SITE.maker)}<br>${esc(SITE.seller)}
     </div>
     <div class="form">${form}</div>
-  </div></section>`;
+  </div></section>
+  ${procHTML()}`;
 }
 
 function product(p, n){
@@ -732,6 +980,17 @@ function product(p, n){
   <section class="sec" style="padding-top:0"><div class="wrap">
     ${vid}
     <div class="feats">${p.feats.map(([t,d],i)=>`<div class="feat"><i>${pad(i+1)}</i><div><b>${esc(t)}</b><p>${esc(d)}</p></div></div>`).join('')}</div>
+
+    <div class="h3">사용 흐름</div>
+    <div class="flow">${(p.flow||[]).map(([t,d],i)=>`<div><i>${i+1}</i><div><b>${esc(t)}</b><p>${esc(d)}</p></div></div>`).join('')}</div>
+
+    <div class="h3">이런 자리에서 씁니다</div>
+    <div class="scenes">${(p.scenes||[]).map(x=>`<span>${esc(x)}</span>`).join('')}</div>
+
+    <div class="h3">함께 쓰는 기관</div>
+    <div class="pair">${SITE.segments.filter(g=>g.products.includes(p.id)).map(g=>{
+      const other=g.products.filter(x=>x!==p.id).map(x=>SITE.products.find(q=>q.id===x)).filter(Boolean).map(q=>q.name).join(', ');
+      return `<a href="#/${g.id}"><b>${esc(g.name)}</b><span>${esc(p.name)} + ${esc(other)} 구성 →</span></a>`;}).join('')}</div>
   </div></section>
 
   <section class="sec sec--sky" style="padding-top:72px"><div class="wrap">
@@ -757,14 +1016,15 @@ function route(){
   if(p){ html = product(p, idx+1); title = `${p.name} ${p.short} — ${p.tag} | Tkita`; }
   else if(g){ html = segment(g); title = `${g.name} 안내 | Tkita`; }
   else if(id==='contact'){ html = contact(); title = '기관 도입 문의 | Tkita'; }
+  else if(id==='about'){ html = aboutPage(); title = '회사 소개 | Tkita'; }
   else if(id==='faq' && SITE.faq && SITE.faq.show){ html = faqHTML() + trialHTML(); title = '자주 묻는 질문 | Tkita'; }
   else { html = home(); title = 'Tkita — AI 실시간 자막·통번역 솔루션'; }
   $('#app').innerHTML = html;
-  document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on', a.dataset.id===(p?id:(g||id==='contact'||id==='faq')?'':'home')));
+  document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on', a.dataset.id===(p?id:(g||id==='contact'||id==='faq'||id==='about')?'':'home')));
   document.title = title;
   window.scrollTo(0,0);
   if(window.gtag) gtag('event','page_view',{page_title:title,page_location:SITE.siteUrl+(location.hash||''),page_path:'/'+(id==='home'?'':id)});
-  if(!p && !g && id!=='contact' && id!=='faq') runDemo();
+  if(!p && !g && !['contact','faq','about'].includes(id)) runDemo();
   const v = $('.video[data-yt]');
   if(v) v.querySelector('.play').addEventListener('click',()=>{
     v.innerHTML = `<iframe src="https://www.youtube.com/embed/${v.dataset.yt}?autoplay=1&rel=0" title="소개 영상"
