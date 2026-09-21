@@ -201,6 +201,7 @@ const SITE = {
         ["끝나면 강의록이 남습니다","음성과 텍스트 파일이 자동 저장되어 복습 자료로 쓸 수 있습니다."]
       ],
       shots:[
+        ["images/caption-hero.webp","TkitaCaption 대표 화면"],
         ["images/caption-main.webp","프로그램 메인 화면"],
         ["images/caption-share.webp","자막 공유방과 QR 코드"],
         ["images/caption-phones.webp","참석자가 자기 언어를 고르는 화면"],
@@ -231,6 +232,7 @@ const SITE = {
         ["상담 기록이 남습니다","대화 내용이 파일로 저장되어 재방문 응대와 인수인계에 쓰입니다."]
       ],
       shots:[
+        ["images/talk-hero.webp","TkitaTalk 대표 화면"],
         ["images/talk-host.webp","직원 화면 — 시작 버튼 하나"],
         ["images/talk-flags.webp","내방자 화면 — 국기 선택"],
         ["images/talk-chat.webp","상담자 화면"],
@@ -261,6 +263,7 @@ const SITE = {
         ["대화 기록 자동 저장","모드별로 나뉘어 저장되어 나중에 그대로 확인합니다."]
       ],
       shots:[
+        ["images/mobile-hero.webp","TkitaMobile 대표 화면"],
         ["images/mobile-main.webp","실행 화면과 모드 선택"],
         ["images/mobile-invite.webp","QR로 초대해 각자 기기에서 대화"],
         ["images/mobile-conv.webp","대화 모드 — 화면 상하 분할"]
@@ -290,6 +293,7 @@ const SITE = {
         ["끝나면 회의록이 정리됩니다","화자별·언어별로 저장되고 요약본이 함께 만들어집니다."]
       ],
       shots:[
+        ["images/meet-hero.webp","TkitaMeet 대표 화면"],
         ["images/meet-caption.webp","회의 중 실시간 자막 화면"],
         ["images/meet-app.webp","회의 연결과 언어 설정"],
         ["images/meet-record.webp","회의 종료 후 회의록 관리"]
@@ -573,6 +577,11 @@ footer b{color:#fff}
 .shot figcaption{font-size:13.5px;color:var(--mute);margin-top:14px;display:flex;gap:10px;align-items:center}
 .shot figcaption i{font-style:normal;font-family:var(--mono);font-size:11px;color:var(--blue);background:var(--sky);border-radius:6px;padding:2px 7px;font-weight:700}
 .shot--wide{grid-column:1/-1}
+.shot--hero{margin:-40px 0 0;padding:0;border-radius:var(--r) var(--r) var(--r) 6px;overflow:hidden;
+  box-shadow:0 26px 54px rgba(15,22,38,.14);background:#fff}
+.shot--hero .im{min-height:0;max-height:none}
+.shot--hero img{width:100%;max-height:none;border-radius:0}
+@media (max-width:960px){.shot--hero{margin-top:0}}
 
 
 /* 기관 유형별 */
@@ -1044,9 +1053,7 @@ function product(p, n){
     ? `<div class="video" data-yt="${esc(p.youtube)}"><img src="https://i.ytimg.com/vi/${esc(p.youtube)}/maxresdefault.jpg" alt="${esc(p.name)} 소개 영상"
          onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${esc(p.youtube)}/hqdefault.jpg'">
        <button class="play" aria-label="${esc(p.name)} 소개 영상 재생"><i></i></button></div>`
-    : `<figure class="shot" style="margin-top:-40px;min-height:0"><div class="im" style="max-height:480px">
-         <img src="${esc(hero[0])}" alt="${esc(hero[1])}"></div>
-         <figcaption><i>대표 화면</i>${esc(hero[1])}</figcaption></figure>`;
+    : `<figure class="shot shot--hero"><div class="im"><img src="${esc(hero[0])}" alt="${esc(hero[1])}"></div></figure>`;
   const list = hero ? p.shots.slice(1) : p.shots;
   const shots = list.map(([src,cap],i)=>{
     const wide = /talk-hw|caption-phones|mobile-invite|meet-app/.test(src);
