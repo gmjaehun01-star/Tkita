@@ -18,6 +18,20 @@
 <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <meta name="theme-color" content="#2848F8">
+
+<!-- ══ 검색엔진 소유확인 · Google Analytics ══════════════════════════
+     검색 로봇은 자바스크립트를 실행하지 않으므로 반드시 여기 <head>에 직접 둡니다.
+     코드를 바꾸실 때는 content="..." 안쪽 값만 교체하세요. -->
+<meta name="naver-site-verification" content="69fd71912e0d7ab66f5b9cbd1d9f6cc3a87a2e68" />
+<!-- 구글 서치콘솔 HTML 태그 방식을 쓰실 경우 아래 줄의 주석을 풀고 값을 넣으세요
+<meta name="google-site-verification" content="" /> -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-16XSS3XR8Q"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-16XSS3XR8Q', { send_page_view: false });
+</script>
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 
@@ -31,15 +45,11 @@ const SITE = {
 
   /* ─── 사이트 운영 설정 ──────────────────────────────────── */
   siteUrl:    "https://gmjaehun01-star.github.io/",  // 주소를 바꾸면 여기도 바꿔 주세요
-  gaId:       "G-16XSS3XR8Q",   // Google Analytics 측정 ID (비워두면 측정 안 함)
+  // Google Analytics 측정 ID와 네이버·구글 소유확인 코드는
+  // 이 파일 맨 위 <head> 안 "검색엔진 소유확인 · Google Analytics" 부분에 직접 들어 있습니다.
   formEmbed:  "",        // 기관 문의 폼을 페이지 안에 넣을 때 MS Forms 삽입 주소. 비워두면 새 창으로 열림
   certUrl:    "",        // 시험성적서(BLEU) PDF 주소. 넣으면 성능 수치 옆에 "성적서 보기" 링크가 생김
   privacyUrl: "",        // 개인정보처리방침 주소. 넣으면 바닥과 문의 페이지에 링크가 생김
-
-  /* 검색엔진 소유확인 코드. 받은 코드의 content="..." 안쪽 값만 넣으시면 됩니다.
-     비워두면 아무것도 삽입되지 않습니다. */
-  naverVerify:  "",      // 네이버 서치어드바이저
-  googleVerify: "",      // 구글 서치콘솔
 
   /* ─── 회사 정보 ─────────────────────────────────────────── */
   maker:      "㈜에어사운드",          // 개발사
@@ -775,19 +785,6 @@ const pad = n => String(n).padStart(2,'0');
   $('#stickApply').href = SITE.formEmbed ? '#/contact' : SITE.applyUrl;
   $('#navCta').dataset.ev = 'cta_trial';
 
-  /* 검색엔진 소유확인 메타태그 — 코드가 있을 때만 삽입 */
-  [['naver-site-verification', SITE.naverVerify],
-   ['google-site-verification', SITE.googleVerify]].forEach(([k,v])=>{
-    if(!v) return;
-    const m=document.createElement('meta'); m.name=k; m.content=v; document.head.appendChild(m);
-  });
-
-  /* Google Analytics — SITE.gaId 가 있을 때만 켜집니다 */
-  if(SITE.gaId){
-    const g=document.createElement('script'); g.async=true; g.src='https://www.googletagmanager.com/gtag/js?id='+SITE.gaId; document.head.appendChild(g);
-    window.dataLayer=window.dataLayer||[]; window.gtag=function(){dataLayer.push(arguments);};
-    gtag('js',new Date()); gtag('config',SITE.gaId,{send_page_view:false});
-  }
   document.addEventListener('click',e=>{
     const a=e.target.closest('[data-ev]'); if(!a||!window.gtag) return;
     gtag('event',a.dataset.ev,{page:location.hash||'#/',label:a.textContent.trim()});
