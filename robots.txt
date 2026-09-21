@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gmjaehun01-star.github.io/sitemap.xml
