@@ -329,6 +329,20 @@ const SITE = {
       depts:"민원실 · 국제교류 담당 · 외국인주민 지원센터" }
   ],
 
+  /* ─── 메인 소개 영상 (한 자리에서 순서대로 이어 재생) ──────
+     유튜브 주소의 v= 뒤 11자리(또는 youtu.be/ 뒤)만 넣으시면 됩니다.
+     목록을 비우면 이 구간 자체가 화면에서 사라집니다.
+     한 편이 끝나면 다음 편, 마지막이 끝나면 다시 처음으로 돌아갑니다. */
+  intro: {
+    title: "Tkita, 3분이면 이해됩니다",
+    lead:  "제품이 실제로 어떻게 움직이는지 영상으로 확인하십시오. 한 편이 끝나면 다음 편이 이어집니다.",
+    videos: [
+      ["GY3_QZDO3CQ", "Tkita 소개"],
+      ["MKyQ3UiLShI", "실제 사용 장면"],
+      ["e065sW8TdF8", "활용 사례"]
+    ]
+  },
+
   /* ─── 첫 화면: 어떤 제품이 맞나요? (상황 → 제품 id) ─── */
   chooser: [
     ["한 사람이 말하고 여러 명이 듣습니다 — 강의, 강연, 설명회", "caption"],
@@ -596,6 +610,25 @@ footer b{color:#fff}
 .contact .form iframe{width:100%;height:100%;min-height:720px;border:0;display:block}
 .contact .form .ph{padding:40px;text-align:center;color:var(--mute)}
 
+/* 메인 소개 영상 */
+.intro{background:var(--char);color:#fff}
+.intro h2{color:#fff}
+.intro .lead{color:#9AA3BC}
+.iv{margin-top:36px;border-radius:var(--r) var(--r) var(--r) 6px;overflow:hidden;background:#000;aspect-ratio:16/9;position:relative;
+  border:1px solid #2C3348}
+.iv iframe{width:100%;height:100%;border:0;display:block}
+.iv img{width:100%;height:100%;object-fit:cover}
+.iv .play{position:absolute;inset:0;border:0;background:rgba(15,22,38,.34);cursor:pointer;display:grid;place-items:center;padding:0}
+.iv .play:hover{background:rgba(15,22,38,.16)}
+.iv .play i{width:88px;height:88px;border-radius:50%;background:var(--grad);display:grid;place-items:center;box-shadow:0 12px 34px rgba(40,72,248,.45)}
+.iv .play i::before{content:"";border-left:24px solid #fff;border-top:14px solid transparent;border-bottom:14px solid transparent;margin-left:7px}
+.ivnav{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.ivnav button{flex:1;min-width:150px;text-align:left;background:var(--char-2);border:1px solid #2C3348;border-radius:12px 12px 12px 4px;
+  padding:14px 18px;color:#C3CBE0;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;transition:border-color .15s,color .15s}
+.ivnav button:hover{border-color:var(--blue-x);color:#fff}
+.ivnav button.on{background:var(--grad);border-color:transparent;color:#fff}
+.ivnav button span{display:block;font-size:11.5px;font-weight:700;opacity:.7;margin-bottom:3px;letter-spacing:.06em}
+
 /* 선택표 */
 .choose{margin-top:36px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#fff}
 .choose a{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;padding:20px 24px;text-decoration:none;border-top:1px solid var(--line)}
@@ -831,6 +864,8 @@ function home(){
     </div>
   </div></section>
 
+  ${introHTML()}
+
   <section class="sec" style="padding-bottom:0"><div class="wrap">
     <h2>어떤 제품이 맞나요?</h2>
     <p class="lead">쓰는 자리를 고르시면 됩니다. 인식 엔진과 번역 품질은 네 제품이 같습니다.</p>
@@ -870,6 +905,47 @@ function home(){
   ${faqHTML()}
   ${trialHTML()}`;
 }
+
+function introHTML(){
+  const v = SITE.intro && SITE.intro.videos ? SITE.intro.videos.filter(x=>x && x[0]) : [];
+  if(!v.length) return '';
+  return `<section class="sec intro"><div class="wrap">
+    <h2>${esc(SITE.intro.title||'소개 영상')}</h2>
+    <p class="lead">${esc(SITE.intro.lead||'')}</p>
+    <div class="iv" id="iv">
+      <img src="https://i.ytimg.com/vi/${esc(v[0][0])}/maxresdefault.jpg" alt="${esc(v[0][1]||'소개 영상')}"
+        onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${esc(v[0][0])}/hqdefault.jpg'">
+      <button class="play" aria-label="소개 영상 재생" onclick="playIntro(0)"><i></i></button>
+    </div>
+    <div class="ivnav" id="ivnav">${v.map(([id,t],i)=>
+      `<button onclick="playIntro(${i})" data-i="${i}"><span>${pad(i+1)}</span>${esc(t||('영상 '+(i+1)))}</button>`).join('')}</div>
+  </div></section>`;
+}
+
+/* 소개 영상 — 순서대로 이어 재생 */
+let ivPlayer=null, ivIdx=0, ivApi=false;
+function ivList(){ return (SITE.intro&&SITE.intro.videos?SITE.intro.videos:[]).filter(x=>x&&x[0]); }
+function ivMark(i){ document.querySelectorAll('#ivnav button').forEach(b=>b.classList.toggle('on', +b.dataset.i===i)); }
+window.playIntro = function(i){
+  const list = ivList(); if(!list.length) return;
+  ivIdx = i; ivMark(i);
+  if(window.gtag) gtag('event','intro_video',{label:list[i][1]||list[i][0], index:i+1});
+  if(ivPlayer && ivPlayer.loadVideoById){ ivPlayer.loadVideoById(list[i][0]); return; }
+  const box = document.getElementById('iv'); if(!box) return;
+  box.innerHTML = '<div id="ivFrame"></div>';
+  const make = () => {
+    ivPlayer = new YT.Player('ivFrame', {
+      videoId: list[ivIdx][0], playerVars:{autoplay:1, rel:0, playsinline:1},
+      events:{ onStateChange: e => { if(e.data === YT.PlayerState.ENDED){
+        const n = (ivIdx+1) % ivList().length; ivIdx = n; ivMark(n);
+        ivPlayer.loadVideoById(ivList()[n][0]); } } }
+    });
+  };
+  if(window.YT && window.YT.Player){ make(); return; }
+  window.onYouTubeIframeAPIReady = make;
+  if(!ivApi){ ivApi=true; const t=document.createElement('script');
+    t.src='https://www.youtube.com/iframe_api'; document.head.appendChild(t); }
+};
 
 function procHTML(){
   return `<section class="sec sec--sky"><div class="wrap">
@@ -963,11 +1039,16 @@ function contact(){
 }
 
 function product(p, n){
+  const hero = !p.youtube && p.shots.length ? p.shots[0] : null;
   const vid = p.youtube
-    ? `<div class="video" data-yt="${esc(p.youtube)}"><img src="https://i.ytimg.com/vi/${esc(p.youtube)}/maxresdefault.jpg" alt="${esc(p.name)} 소개 영상">
+    ? `<div class="video" data-yt="${esc(p.youtube)}"><img src="https://i.ytimg.com/vi/${esc(p.youtube)}/maxresdefault.jpg" alt="${esc(p.name)} 소개 영상"
+         onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${esc(p.youtube)}/hqdefault.jpg'">
        <button class="play" aria-label="${esc(p.name)} 소개 영상 재생"><i></i></button></div>`
-    : `<div class="video"><div class="video__ph"><b>소개 영상 준비 중</b><span>영상이 올라오면 이 자리에서 바로 재생됩니다.</span></div></div>`;
-  const shots = p.shots.map(([src,cap],i)=>{
+    : `<figure class="shot" style="margin-top:-40px;min-height:0"><div class="im" style="max-height:480px">
+         <img src="${esc(hero[0])}" alt="${esc(hero[1])}"></div>
+         <figcaption><i>대표 화면</i>${esc(hero[1])}</figcaption></figure>`;
+  const list = hero ? p.shots.slice(1) : p.shots;
+  const shots = list.map(([src,cap],i)=>{
     const wide = /talk-hw|caption-phones|mobile-invite|meet-app/.test(src);
     return `<figure class="shot${wide?' shot--wide':''}"><div class="im"><img src="${esc(src)}" alt="${esc(cap)}" loading="lazy"></div>
       <figcaption><i>${pad(i+1)}</i>${esc(cap)}</figcaption></figure>`; }).join('');
@@ -1010,6 +1091,7 @@ function product(p, n){
 
 function route(){
   stopDemo();
+  ivPlayer=null; ivIdx=0;
   const id = (location.hash.replace('#/','') || 'home').trim();
   const idx = SITE.products.findIndex(x=>x.id===id);
   const p = SITE.products[idx];
