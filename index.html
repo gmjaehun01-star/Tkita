@@ -370,6 +370,21 @@ const SITE = {
     ["화상회의에 자막과 회의록이 필요합니다", "meet"]
   ],
 
+  /* ─── 제품 비교표 ─── (행: [항목명, Caption, Talk, Mobile, Meet]) */
+  compare: {
+    title: "네 제품 한눈에 비교",
+    lead:  "인식 엔진과 번역 품질은 네 제품이 같습니다. 아래는 쓰는 방식의 차이입니다.",
+    rows: [
+      ["쓰는 자리",   "강의실 · 강연 · 학회", "창구 · 상담실",    "현장 · 이동 중",     "화상회의"],
+      ["대화 방식",   "한 명이 말하고 다수가 봄", "마주 앉아 양방향", "마주 앉거나 떨어져서", "다자 회의"],
+      ["참여 방법",   "QR 스캔 후 웹 접속",  "국기 선택",        "QR·URL 초대",       "회의 링크 접속"],
+      ["동시 인원",   "최대 30개 언어 자막",  "1 대 1",          "최대 10명",          "발표 4개 언어 · 번역 30개"],
+      ["필요 장비",   "PC (설치 또는 웹)",   "전용 태블릿 2대",   "스마트폰",           "PC"],
+      ["상대방 설치", "필요 없음",           "필요 없음",        "필요 없음",          "필요 없음"],
+      ["종료 후 기록","음성 · 텍스트 저장",   "대화 기록 저장",    "모드별 기록 저장",    "회의록 + AI 요약"]
+    ]
+  },
+
   /* ─── 도입 절차 ─── */
   procedure: [
     ["문의 · 상담", "전화나 메일, 문의 폼으로 연락 주시면 담당자가 상황을 듣습니다."],
@@ -653,6 +668,35 @@ footer b{color:#fff}
 .ivnav button.on{background:var(--grad);border-color:transparent;color:#fff}
 .ivnav button span{display:block;font-size:11.5px;font-weight:700;opacity:.7;margin-bottom:3px;letter-spacing:.06em}
 
+/* 제품 비교표 */
+.cmp{margin-top:36px;overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:#fff}
+.cmp table{width:100%;min-width:760px;border-collapse:collapse;font-size:14.5px}
+.cmp th,.cmp td{padding:15px 18px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+.cmp thead th{background:var(--sky);color:var(--ink);font-weight:800;font-size:15px;letter-spacing:-.02em;border-bottom:2px solid var(--blue)}
+.cmp thead th a{text-decoration:none}
+.cmp thead th small{display:block;font-size:12px;font-weight:600;color:var(--blue);margin-top:3px}
+.cmp tbody th{background:var(--sky-2);color:var(--ink);font-weight:700;white-space:nowrap;width:150px}
+.cmp td{color:var(--mute)}
+.cmp tr:last-child th,.cmp tr:last-child td{border-bottom:0}
+.cmp-note{font-size:13px;color:var(--mute);margin-top:12px}
+
+/* 다른 제품 보기 */
+.more{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+.more a{text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:14px 14px 14px 4px;padding:20px 22px;
+  transition:border-color .15s,transform .15s}
+.more a:hover{border-color:var(--blue);transform:translateY(-2px)}
+.more a b{display:block;font-size:17px;color:var(--ink);letter-spacing:-.02em}
+.more a em{font-style:normal;display:block;font-size:13.5px;color:var(--blue);margin-top:3px}
+.more a span{display:block;font-size:13.5px;color:var(--mute);margin-top:10px;line-height:1.55}
+
+/* 404 */
+.nf{min-height:62vh;display:grid;place-content:center;text-align:center;padding:80px 0}
+.nf b{display:block;font-size:clamp(60px,10vw,110px);font-weight:800;letter-spacing:-.05em;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+.nf h1{font-size:clamp(24px,3.2vw,34px);margin-top:18px}
+.nf p{color:var(--mute);margin-top:14px}
+.nf .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:32px}
+
 /* 선택표 */
 .choose{margin-top:36px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#fff}
 .choose a{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;padding:20px 24px;text-decoration:none;border-top:1px solid var(--line)}
@@ -713,7 +757,7 @@ footer b{color:#fff}
 .stick{display:none}
 
 @media (max-width:960px){
-  .segs,.pick,.contact,.pair,.about{grid-template-columns:1fr}
+  .segs,.pick,.contact,.pair,.about,.more{grid-template-columns:1fr}
   .proc{grid-template-columns:1fr 1fr}
   .facts{grid-template-columns:1fr 1fr}
   .stick{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;gap:10px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));
@@ -837,6 +881,14 @@ function trialHTML(){
       <a class="btn ${i===0?'btn--white':'btn--ghost'}" href="${esc(i===0?SITE.trialUrl:applyHref())}" data-ev="${i===0?'cta_trial':'cta_apply'}">${i===0?'무료 사용':'기관 도입 문의하기'}</a></div>`).join('')}</div>
   </div></div></section>`;
 }
+/* 레퍼런스 구간이 화면에 들어올 때 로고를 불러옵니다 */
+function initTicker(){
+  const rows=document.querySelectorAll('.ticker'); if(!rows.length) return;
+  const load = el => el.querySelectorAll('img[data-src]').forEach(i=>{ i.src=i.dataset.src; i.removeAttribute('data-src'); });
+  if(!('IntersectionObserver' in window)){ rows.forEach(load); return; }
+  const io=new IntersectionObserver((es,ob)=>es.forEach(e=>{ if(e.isIntersecting){ load(e.target); ob.unobserve(e.target); } }),{rootMargin:'300px'});
+  rows.forEach(r=>io.observe(r));
+}
 function tickerHTML(){
   const n=SITE.refs.length, half=Math.ceil(n/2);
   const a=SITE.refs.slice(0,half), b=SITE.refs.slice(half);
@@ -847,7 +899,7 @@ function tickerHTML(){
 function tk(r){
   if(typeof r==='string') return `<span class="tk">${esc(r)}</span>`;
   const nm=esc(r.name||'');
-  return `<span class="tk"><img src="${esc(r.logo)}" alt="${nm}" decoding="async"
+  return `<span class="tk"><img data-src="${esc(r.logo)}" alt="${nm}" decoding="async"
     onerror="this.parentNode.textContent='${nm}'"></span>`;
 }
 
@@ -907,6 +959,8 @@ function home(){
     <div class="segs">${SITE.segments.map(g=>`<a class="seg" href="#/${g.id}"><b>${esc(g.name)}</b><p>${esc(g.headline)}</p><u>자세히 보기 →</u></a>`).join('')}</div>
   </div></section>
 
+  ${compareHTML()}
+
   <section class="sec sec--char"><div class="wrap">
     <h2>측정된 결과로 말씀드립니다</h2>
     ${figsHTML()}
@@ -964,6 +1018,45 @@ window.playIntro = function(i){
   if(!ivApi){ ivApi=true; const t=document.createElement('script');
     t.src='https://www.youtube.com/iframe_api'; document.head.appendChild(t); }
 };
+
+function compareHTML(){
+  const c=SITE.compare; if(!c||!c.rows||!c.rows.length) return '';
+  const ps=SITE.products;
+  return `<section class="sec"><div class="wrap">
+    <h2>${esc(c.title||'제품 비교')}</h2>
+    <p class="lead">${esc(c.lead||'')}</p>
+    <div class="cmp"><table>
+      <thead><tr><th>구분</th>${ps.map(p=>
+        `<th><a href="#/${p.id}">${esc(p.name)}<small>${esc(p.short)}</small></a></th>`).join('')}</tr></thead>
+      <tbody>${c.rows.map(r=>
+        `<tr><th>${esc(r[0])}</th>${r.slice(1).map(v=>`<td>${esc(v)}</td>`).join('')}</tr>`).join('')}</tbody>
+    </table></div>
+    <p class="cmp-note">제품명을 누르시면 해당 제품 페이지로 이동합니다. 표가 잘려 보이면 좌우로 밀어서 보실 수 있습니다.</p>
+  </div></section>`;
+}
+
+function moreHTML(cur){
+  const rest=SITE.products.filter(p=>p.id!==cur);
+  if(!rest.length) return '';
+  return `<section class="sec sec--sky"><div class="wrap">
+    <h2>다른 제품도 보시겠습니까?</h2>
+    <p class="lead">인식 엔진과 번역 품질은 네 제품이 같습니다. 쓰는 자리만 다릅니다.</p>
+    <div class="more">${rest.map(p=>
+      `<a href="#/${p.id}"><b>${esc(p.name)}</b><em>${esc(p.short)}</em><span>${esc(p.lead)}</span></a>`).join('')}</div>
+  </div></section>`;
+}
+
+function notFound(){
+  return `<section class="sec"><div class="wrap nf">
+    <b>404</b>
+    <h1>찾으시는 페이지가 없습니다</h1>
+    <p>주소가 바뀌었거나 잘못 입력되었을 수 있습니다.<br>아래에서 원하시는 곳으로 이동해 주십시오.</p>
+    <div class="cta">
+      <a class="btn btn--grad" href="#/">제품 소개로 가기</a>
+      <a class="btn btn--line" href="#/contact">도입 문의하기</a>
+    </div>
+  </div></section>`;
+}
 
 function procHTML(){
   return `<section class="sec sec--sky"><div class="wrap">
@@ -1102,6 +1195,7 @@ function product(p, n){
     ${figsHTML()}
   </div></section>
 
+  ${moreHTML(p.id)}
   ${trialHTML()}`;
 }
 
@@ -1118,13 +1212,15 @@ function route(){
   else if(id==='contact'){ html = contact(); title = '기관 도입 문의 | Tkita'; }
   else if(id==='about'){ html = aboutPage(); title = '회사 소개 | Tkita'; }
   else if(id==='faq' && SITE.faq && SITE.faq.show){ html = faqHTML() + trialHTML(); title = '자주 묻는 질문 | Tkita'; }
-  else { html = home(); title = 'Tkita — AI 실시간 자막·통번역 솔루션'; }
+  else if(id==='home' || id===''){ html = home(); title = 'Tkita — AI 실시간 자막·통번역 솔루션'; }
+  else { html = notFound(); title = '페이지를 찾을 수 없습니다 | Tkita'; }
   $('#app').innerHTML = html;
   document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on', a.dataset.id===(p?id:(g||id==='contact'||id==='faq'||id==='about')?'':'home')));
   document.title = title;
   window.scrollTo(0,0);
   if(window.gtag) gtag('event','page_view',{page_title:title,page_location:SITE.siteUrl+(location.hash||''),page_path:'/'+(id==='home'?'':id)});
-  if(!p && !g && !['contact','faq','about'].includes(id)) runDemo();
+  if(!p && !g && !['contact','faq','about'].includes(id) && (id==='home'||id==='')) runDemo();
+  initTicker();
   const v = $('.video[data-yt]');
   if(v) v.querySelector('.play').addEventListener('click',()=>{
     v.innerHTML = `<iframe src="https://www.youtube.com/embed/${v.dataset.yt}?autoplay=1&rel=0" title="소개 영상"
